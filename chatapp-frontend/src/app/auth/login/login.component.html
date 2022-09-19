@@ -1,0 +1,55 @@
+<div class="wrapper">
+ <div class="text-center mt-2 mb-3 name">ChatApp</div>
+
+ <div class="logo mb-4">
+   <img src="assets/chat.png" alt="" />
+ </div>
+
+ <form class="p-1 mt-2" #userlogin="ngForm" (ngSubmit)="Verify()">
+  <div class="form-field d-flex align-items-center">
+   <span>👤</span>
+   <input
+     type="text"
+     name="username"
+     id="username"
+     pattern="^(?=[a-zA-Z0-9._]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"
+     placeholder="Username"
+     [(ngModel)]="User.username"
+     #username="ngModel"
+     required
+   />
+   <small [class.d-none]="username.valid" class="px-3 text-danger">χ</small>
+   <small [class.d-none]="username.invalid" class="px-3 text-success"
+     >✓</small
+   >
+ </div>
+   <div class="form-field d-flex align-items-center">
+     <span>🔒</span>
+     <input
+       type="password"
+       name="password"
+       id="pwd"
+       placeholder="Password"
+       [(ngModel)]="User.password"
+       minlength="6"
+       maxlength="6"
+       #password="ngModel"
+       required
+     />
+     <small [class.d-none]="password.valid" class="px-3 text-danger">χ</small>
+     <small [class.d-none]="password.invalid" class="px-3 text-success"
+       >✓</small
+     >
+   </div>
+   <button class="btn mt-3 mb-1" [disabled]="userlogin.form.invalid">
+     LOGIN
+   </button>
+ </form>
+ <div class="text-center fs-6">
+   <a routerLink="/auth/signup">Create New Account</a>
+ </div>
+ <div class="text-center fs-6">
+  <a routerLink="../new-password">Forgot Password?</a>
+</div>
+</div>
+ 

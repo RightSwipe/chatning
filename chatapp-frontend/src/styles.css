@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@import "~bootstrap/dist/css/bootstrap.css";
+
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgb(125, 125, 125);
+	border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(36, 35, 35);
+}
