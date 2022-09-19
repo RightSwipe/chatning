@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./set-password.component.css']
 })
 export class SetPasswordComponent implements OnInit {
-  userCred = new AuthModel('','','')
+  userCred = new AuthModel('','','','')
 
   constructor(private _auth:AuthService) { }
 

@@ -4,7 +4,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 ::-webkit-scrollbar {
-	width: 6px;
+	width: 4px;
 }
 
 ::-webkit-scrollbar-track {

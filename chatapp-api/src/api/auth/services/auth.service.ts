@@ -16,6 +16,7 @@ export class AuthService {
     if (check === null) {
       const Userdoc = new Users({
         username: user.data.username,
+        fullname: user.data.name,
         password: randomPin,
         email: user.data.email,
         image: user.image,
