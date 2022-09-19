@@ -1,0 +1,67 @@
+<div class="wrapper">
+  <div [hidden]="show" class="logo mb-2">
+    <img [src]="url" alt="" />
+  </div>
+  <form class="p-3 mt-3" #userlogin="ngForm" (ngSubmit)="submit()">
+    <div class="form-field d-flex align-items-center">
+      <span>📧</span>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Email"
+        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+        [(ngModel)]="userCred.email"
+        #email="ngModel"
+        [class.is-invalid]="email.invalid && email.touched"
+        required
+      />
+      <small [class.d-none]="email.valid" class="px-3 text-danger">χ</small>
+      <small [class.d-none]="email.invalid" class="px-3 text-success">✓</small>
+    </div>
+    <div class="form-field d-flex align-items-center">
+      <span>👤</span>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        pattern="^(?=[a-zA-Z0-9._]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"
+        placeholder="Username"
+        [(ngModel)]="userCred.username"
+        #username="ngModel"
+        required
+      />
+      <small [class.d-none]="username.valid" class="px-3 text-danger">χ</small>
+      <small [class.d-none]="username.invalid" class="px-3 text-success"
+        >✓</small
+      >
+    </div>
+    <div class="form-field d-flex align-items-center">
+      📷
+      <input
+        class="form-control form-control-sm"
+        type="file"
+        name="file"
+        id="file"
+        accept="image/*"
+        [(ngModel)]="photo"
+        #image="ngModel"
+        (change)="selectFile($event)"
+        placeholder="Photo"
+        required
+        ngModel
+      />
+      <small [class.d-none]="image.valid" class="px-3 text-danger">χ</small>
+      <small [class.d-none]="image.invalid" class="px-3 text-success">✓</small>
+    </div>
+    <button
+      class="btn mt-3"
+      [disabled]="userlogin.form.invalid"
+    >
+      SUBMIT
+    </button>
+  </form>
+  <div class="text-center">
+    <a routerLink="../login" class="fs-4">←</a>
+  </div>
+</div>
