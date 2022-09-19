@@ -23,6 +23,24 @@
       <span>👤</span>
       <input
         type="text"
+        name="name"
+        id="name"
+        minlength="4"
+        maxlength="256"
+        placeholder="Full Name"
+        [(ngModel)]="userCred.name"
+        #name="ngModel"
+        required
+      />
+      <small [class.d-none]="name.valid" class="px-3 text-danger">χ</small>
+      <small [class.d-none]="name.invalid" class="px-3 text-success"
+        >✓</small
+      >
+    </div>
+    <div class="form-field d-flex align-items-center">
+      <span>👤</span>
+      <input
+        type="text"
         name="username"
         id="username"
         pattern="^(?=[a-zA-Z0-9._]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"

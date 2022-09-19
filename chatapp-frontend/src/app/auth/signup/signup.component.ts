@@ -11,7 +11,7 @@ export class SignupComponent implements OnInit {
   photo:any
   url:any
   show= true
-  userCred = new AuthModel('','','')
+  userCred = new AuthModel('','','','')
 
   constructor(private _auth: AuthService, private _router:Router) { }
 
