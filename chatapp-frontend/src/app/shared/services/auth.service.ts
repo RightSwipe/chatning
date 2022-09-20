@@ -13,13 +13,14 @@ export class AuthService {
     return this._http.post('http://localhost:8080/register',data)
   }
   Verify(data:any){
-    return this._http.post('http://localhost:8080/login',data, {headers:this.headers})
+    return this._http.post<any>('http://localhost:8080/login',data, {headers:this.headers})
   }
   NewPassword(data:any){
     return this._http.put('http://localhost:8080/newpassword',data)
   }
   isLoggedIn(){
-    return !! localStorage.getItem('token')
+    const isData:any = localStorage.getItem('userData')
+    return !! JSON.parse(isData).token
   }
 
 }

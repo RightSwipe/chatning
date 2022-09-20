@@ -17,12 +17,9 @@ export class LoginComponent implements OnInit {
 
   Verify(){
     this._auth.Verify(this.User).subscribe(async(res) => {
-      console.log(res.data)
-      const data = JSON.parse(JSON.stringify(res))
-      await localStorage.setItem("token",data.data.token)
-      localStorage.setItem("userData",data.data.user)
+      const data = JSON.stringify(res.data)
+      await localStorage.setItem("userData",data)
       this._router.navigate(['../']);
-      console.log(res);
     });
   }
 }
