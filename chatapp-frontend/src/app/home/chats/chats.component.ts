@@ -24,8 +24,8 @@ export class ChatsComponent implements OnInit {
     this._router.navigate(['/auth/login'])
   }
   getUserData(){
-    this.userData = JSON.parse(JSON.stringify(localStorage.getItem('userData') ))
-    console.log(this.userData.username)
+    const user:any =localStorage.getItem('userData')
+    this.userData = JSON.parse(user)
   }
 
 }
