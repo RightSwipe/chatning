@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 export interface AuthDocument extends mongoose.Document {
- username:String;
- fullname:String;
- password:Number;
- email:String
+ username:string;
+ fullname:string;
+ password:string;
+ email:string
  createdAt: Date;
  updatedAt: Date;
 }
@@ -12,7 +12,7 @@ export interface AuthDocument extends mongoose.Document {
 const AuthSchema = new mongoose.Schema({
  username:{type:String, unique:true, required:true},
  fullname:{type:String, required:true},
- password:{type:Number, required:true},
+ password:{type:String, required:true},
  email:{type:String, unique:true, required:true},
  image:{type:String, required:true}
 },{

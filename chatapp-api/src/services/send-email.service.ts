@@ -4,7 +4,7 @@ import Users from "../model/auth.model";
 
 const app = express();
 
-export const sendMail = async (email: String,randomPin:Number, subject: String, message: String) => {
+export const sendMail = async (email: String,randomPin:String, subject: String, message: String) => {
   
   
     var transporter = nodemailer.createTransport({
