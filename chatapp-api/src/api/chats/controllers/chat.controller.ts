@@ -7,7 +7,7 @@ export class ChatController{
  constructor(private chatServices:ChatService){}
  getUserHandler =async (req:Request, res:Response) => {
   try {
-   const response = await this.chatServices.getUserService(req)
+   const response = await this.chatServices.getAllUserService(req)
    return res.status(201).json({
     status:201,
     message:"User Data",

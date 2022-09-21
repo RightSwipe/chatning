@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Service } from "typedi";
-import  jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import Users, { AuthDocument } from "../../../model/auth.model";
 import { sendMail } from "../../../services/send-email.service";
@@ -10,11 +10,11 @@ export class AuthService {
   constructor(private auth: AuthDocument) {}
   SaveUser = async (req: Request) => {
     const randomVal = Math.random().toString(36).substring(2, 8);
-    const hashedPassword = await bcrypt.hash(randomVal,10)
+    const hashedPassword = await bcrypt.hash(randomVal, 10);
     const user = req.body;
     console.log(user);
     const check = await Users.findOne({ username: user.data.username });
-    console.log(check)
+    console.log(check);
     if (check === null) {
       const Userdoc = new Users({
         username: user.data.username,
@@ -37,35 +37,29 @@ export class AuthService {
 
   getUser = async (req: Request) => {
     try {
-      const {username,password} = req.body
+      const { username, password } = req.body;
       const user = await Users.findOne({
-        username: username
+        username: username,
       });
 
-
-      const dbpassword = user?.password!
-      const isPasswordValid =await bcrypt.compare(password, dbpassword)
-      console.log("valid",isPasswordValid)
-      if(isPasswordValid){
+      const dbpassword = user?.password!;
+      const isPasswordValid = await bcrypt.compare(password, dbpassword);
+      if (isPasswordValid) {
         let payload = { subject: req.body.username + req.body.password };
         let token = jwt.sign(payload, "secretKey");
-        console.log("password succss")
-        return {"user":user,"token":token};
+        return { user: user, token: token };
       }
-
-      console.log("unsuccessful")
-      return "Invalid Credentials"
-
+      return "Invalid Credentials";
     } catch (error: any) {
       console.log(error);
       throw new Error(error);
     }
   };
   newPassword = async (req: Request) => {
-   console.log(req.body.username)
+    console.log(req.body.username);
     const randomVal = Math.random().toString(36).substring(2, 8);
     try {
-     console.log("set",`${randomVal}`)
+      console.log("set", `${randomVal}`);
       const user = await Users.findOneAndUpdate(
         {
           username: req.body.username,
@@ -78,7 +72,7 @@ export class AuthService {
       );
       const email = user?.email;
       if (email) {
-       console.log("email",`${randomVal}`)
+        console.log("email", `${randomVal}`);
         sendMail(email, randomVal, "New Password", `${randomVal}`);
       }
       return user;

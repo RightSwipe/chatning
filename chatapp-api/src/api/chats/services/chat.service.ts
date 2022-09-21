@@ -5,9 +5,9 @@ import Users, { AuthDocument } from "../../../model/auth.model";
 @Service()
 export class ChatService {
   constructor() {}
-  getUserService = async (req: Request) => {
+  getAllUserService = async (req: Request) => {
     try {
-      const user = await Users.findById(req.params.id);
+      const user = await Users.find({_id:{$ne:req.params.id}}).select(["_id","username","image","fullname"]);
       return user;
     } catch (error: any) {
       console.log(error);

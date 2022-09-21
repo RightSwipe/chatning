@@ -19,5 +19,5 @@ const AuthSchema = new mongoose.Schema({
  timestamps : true
 })
 
-const Users = mongoose.model<AuthDocument>("user",AuthSchema);
+const Users = mongoose.model<AuthDocument>("users",AuthSchema);
 export default Users;
