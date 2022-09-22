@@ -10,7 +10,15 @@ export class DataService {
   constructor(private _http:HttpClient) { }
 
   getUser(id:String){
-    return this._http.get("http://localhost:8080/user/"+id)
+    return this._http.get<any>("http://localhost:8080/user/"+id,{headers:this.headers})
+  }
+  addMessagae(data:object){
+    console.log(data)
+    return this._http.post<any>("http://localhost:8080/add-message",data)
+  }
+  getMessagae(data:object){
+    console.log(data)
+    return this._http.post<any>("http://localhost:8080/get-message",data)
   }
 
 }

@@ -14,14 +14,16 @@ export class MessageService{
      users: {
        $all: [from, to],
      },
-   }).sort({ updatedAt: 1 });
+   }).sort({ time: -1 });
 
    const projectedMessages = messages.map((msg) => {
     return {
       fromSelf: msg.sender.toString() === from,
       message: msg.message.text,
+      time:msg.time
     };
   })
+  return projectedMessages
 
   
  } catch (error:any) {
@@ -32,11 +34,13 @@ export class MessageService{
 
 addMessageService = async(req:Request)=>{
   try {
+    console.log("Date",Date.now())
     const { from, to, message } = req.body;
     const data = await Message.create({
       message: { text: message },
       users: [from, to],
       sender: from,
+      time: Date.now()
     });
     const msg = data? "Message added successfully" : "Failed to add message to the database"
     return data

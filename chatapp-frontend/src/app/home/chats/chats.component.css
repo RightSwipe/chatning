@@ -14,8 +14,11 @@
   margin-left: 2.9rem;
   margin-top: -.75rem;
   }
-  a{
+  .btn{
     text-decoration: none;
+  }
+  li:hover{
+    background-color: #f5f6f7;
   }
   button{
     border: none;
@@ -51,4 +54,11 @@
     }
     .dropdown-item{
       font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    img{
+      border-radius: 50%;
+    }
+    .message{
+      display: flex;
+      flex-direction: column-reverse;
     }

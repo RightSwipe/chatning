@@ -10,7 +10,12 @@ import { DataService } from 'src/app/shared/services/data.service';
 })
 export class ChatsComponent implements OnInit {
   userData:any
-  id : String = JSON.parse(JSON.stringify(localStorage.getItem("user_id"))!) 
+  id!: string;
+  chats:any;
+  messages:any;
+  show = true;
+  topName!: string;
+  topImage: string ="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
 
   constructor(private _router:Router, private _dataService:DataService) {}
 
@@ -25,7 +30,24 @@ export class ChatsComponent implements OnInit {
   }
   getUserData(){
     const user:any =localStorage.getItem('userData')
-    this.userData = JSON.parse(user)
+    this.userData = JSON.parse(user).user
+    this.id = this.userData._id
+    this._dataService.getUser(this.id).subscribe((res)=>{
+      this.chats = JSON.parse(JSON.stringify(res.data))
+    })
+
+  }
+  getMessages(reciever_id:string,name:string,image:string){
+    this.topName = name
+    this.show = false
+    this.topImage = image
+    const msgInfo = {"from":this.id,"to":reciever_id}
+    this._dataService.getMessagae(msgInfo).subscribe((res)=>{
+        this.messages = JSON.parse(JSON.stringify(res.data))
+        console.log(this.messages)
+    })
+    
+
   }
 
 }
