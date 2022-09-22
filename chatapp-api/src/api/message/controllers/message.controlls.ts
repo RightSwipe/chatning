@@ -10,9 +10,19 @@ export class MessageController{
  getMessageHandler =async (req:Request,res:Response) => {
   try {
    const response = await this.messageService.getAllMessageService(req);
+   return res.status(201).json({
+    status:201,
+    message:"Recieved all messages",
+    data:response
+   })
 
    
-  } catch (error) {
+  } catch (error:any) {
+   return res.status(400).json({
+    status:400,
+    error:"Error",
+    message:error.message
+   })
    
   }
   

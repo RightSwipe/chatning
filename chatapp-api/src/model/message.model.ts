@@ -4,7 +4,7 @@ export interface MessageDocument extends mongoose.Document {
   message: {text:string};
   users: [string];
   sender: mongoose.Types.ObjectId;
-  time: Date;
+  time:Date
 }
 
 const MessageSchema = new mongoose.Schema(
@@ -18,10 +18,14 @@ const MessageSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    time:{
+      type:Date,
+      required:true
+    }
   },
-  {
-    timestamps: true,
-  }
+  // {
+  //   timestamps: true,
+  // }
 );
 
 const Message = mongoose.model<MessageDocument>("messages", MessageSchema);
