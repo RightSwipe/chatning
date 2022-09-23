@@ -7,12 +7,12 @@ import 'reflect-metadata';
 import { RedisStore, client } from "./api/auth/services/session.service";
 import routes from "./routes";
 const PORT = process.env.PORT;
-
+import { Server } from "socket.io";
 (async () => {
   await connect();
   const store = new RedisStore({ client })
   const app = connectApp(store)
-  app.listen(PORT, async () => {
+  const server = app.listen(PORT, async () => {
     console.log(`Server running on ${PORT}.`);
     routes(app)
   })
