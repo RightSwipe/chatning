@@ -127,12 +127,12 @@
                   style="position: relative; height: 400px"
                 >
 
-                  <div class="d-flex flex-row justify-content-start" *ngFor="let message of messages">
-                    <img
+                  <div class="d-flex flex-row justify-content-start" *ngFor="let message of messages" [ngClass]="message.fromSelf === true ? 'd-flex flex-row  justify-content-end':'d-flex flex-row justify-content-start'">
+                    <!-- <img
                       src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
                       alt="avatar 1"
                       style="width: 45px; height: 45px"
-                    />
+                    /> -->
                     <div>
                       <p
                         class="small p-2 ms-3 mb-1 rounded-3"
@@ -179,16 +179,17 @@
                     class="form-control form-control-lg"
                     id="exampleFormControlInput2"
                     placeholder="Type message"
+                    [(ngModel)]="send_message"
                   />
-                  <a class="ms-1 text-muted" href="#!"
+                  <button class="ms-1 text-muted btn" 
                     ><i class="fas fa-paperclip"></i
-                  ></a>
-                  <a class="ms-3 text-muted" href="#!"
+                  ></button>
+                  <button class="ms-3 text-muted"
                     ><i class="fas fa-smile"></i
-                  ></a>
-                  <a class="ms-3" href="#!"
+                  ></button>
+                  <button class="ms-3" (click)="sendMessage()"
                     ><i class="fas fa-paper-plane"></i
-                  ></a>
+                  ></button>
                 </div>
               </div>
             </div>

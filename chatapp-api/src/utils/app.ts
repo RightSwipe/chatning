@@ -9,12 +9,17 @@ import { sendMail } from "../services/send-email.service";
 
 const connectApp = (store: Store) => {
  const app = express();
+ const http = require('http').createServer(app);
  app.use(cors());
  app.use(express.json({ limit: "200mb" }));
  app.use(session({
   ...SESSION_OPTIONS,
   store
  }))
+
+
+
+
 
  // app.post('/register', (req: Request, res: Response) => {
  //  const randomPin = Math.floor(100000 + Math.random() * 900000);
