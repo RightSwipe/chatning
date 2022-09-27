@@ -22,6 +22,7 @@ export class AuthService {
         password: hashedPassword,
         email: user.data.email,
         image: user.image,
+        status: false
       });
       const data = await Userdoc.save();
       sendMail(

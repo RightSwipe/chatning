@@ -1,11 +1,11 @@
-import express, { Express, Request, Response } from "express";
+import express from "express";
 import { SESSION_OPTIONS } from "../config/session";
 import session, { Store } from "express-session";
 import cors from "cors"
+import { socket } from "./socket";
 
-import Users from "../model/auth.model";
-import { sendMail } from "../services/send-email.service";
 
+socket();
 
 const connectApp = (store: Store) => {
  const app = express();
@@ -16,27 +16,6 @@ const connectApp = (store: Store) => {
   ...SESSION_OPTIONS,
   store
  }))
-
-
-
-
-
- // app.post('/register', (req: Request, res: Response) => {
- //  const randomPin = Math.floor(100000 + Math.random() * 900000);
- //  const user = req.body
- //  const Userdoc =new Users({
- // username:user.data.username,
- // password:randomPin,
- // email:user.data.email,
- // image:user.image
- //  })
- //  Userdoc.save().then(()=>{
- //   console.log('Uploaded')
- //   sendMail(user.data.email,randomPin,"Account is Created",`${randomPin}`)
-
- //  })
- //  res.json({ message: "Works" })
- // })
 
 
  return app

@@ -13,7 +13,7 @@ const routes = (app:Express)=>{
  app.post('/register',authController.SaveUserHandler)
  app.post('/login',authController.getUserHandler)
  app.put('/newpassword',authController.newPasswordHandler)
- app.get('/user/:id',chatController.getUserHandler)
+ app.put('/user',chatController.getUserHandler)
  app.post('/add-message',messageController.addMessageHandler)
  app.post('/get-message',messageController.getMessageHandler)
 
