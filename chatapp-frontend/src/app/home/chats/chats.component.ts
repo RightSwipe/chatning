@@ -16,6 +16,8 @@ export class ChatsComponent implements OnInit {
   chats:any;
   messages:any;
   show = true;
+  status!:string
+  msgInfo:any
   send_message!: string;
   reciever_id !: string
   topName!: string;
@@ -23,9 +25,9 @@ export class ChatsComponent implements OnInit {
 
   constructor(private _router:Router, private _dataService:DataService, private socketService: SocketService) {}
 
-  ngOnInit(): void {
+  ngOnInit():void{
     this.getUserData();
-    this.socketService.setupSocketConnection();
+    this.socketService.setupSocketConnection(this.id)
 
   }
 
@@ -41,7 +43,7 @@ export class ChatsComponent implements OnInit {
     const user:any =localStorage.getItem('userData')
     this.userData = JSON.parse(user).user
     this.id = this.userData._id
-    this._dataService.getUser(this.id).subscribe((res)=>{
+    this._dataService.getUser(this.id).subscribe((res:any)=>{
       this.chats = JSON.parse(JSON.stringify(res.data))
     })
 
@@ -51,20 +53,30 @@ export class ChatsComponent implements OnInit {
     this.show = false
     this.topImage = image
     this.reciever_id = reciever_id
-    const msgInfo = {"from":this.id,"to":reciever_id}
-    this._dataService.getMessagae(msgInfo).subscribe((res)=>{
+    this.msgInfo = {"from":this.id,"to":reciever_id}
+    this._dataService.getMessagae(this.msgInfo).subscribe((res:any)=>{
         this.messages = JSON.parse(JSON.stringify(res.data))
         console.log(this.messages)
     })
     
+    
 
   }
 
-  sendMessage(){
+  async sendMessage(){
     const sendInfo = {"from":this.id, "to":this.reciever_id,"message":this.send_message}
-    this.send_message = ""
-    this._dataService.addMessagae(sendInfo).subscribe((res)=>{
+ 
+    await this._dataService.addMessagae(sendInfo).subscribe((res:any)=>{
+      this.messages = JSON.parse(JSON.stringify(res.data.add))
       console.log("message sent",res)
+      this.getUserData();
+    })
+    this.socketService.sendRealtimeMessage(sendInfo)
+    this.send_message = ""
+    this.socketService.getMessage().subscribe((data:any)=>{
+      this.messages = data.message
+      console.log(data.message)
+
     })
   }
 
