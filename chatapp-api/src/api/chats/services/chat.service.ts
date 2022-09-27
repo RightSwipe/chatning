@@ -7,11 +7,16 @@ export class ChatService {
   constructor() {}
   getAllUserService = async (req: Request) => {
     try {
-      const user = await Users.find({_id:{$ne:req.params.id}}).select(["_id","username","image","fullname"]);
+      this.changeStatus(req)
+      const user = await Users.find({_id:{$ne:req.body.id}}).select(["_id","username","image","fullname","lastmessage","status"]).sort({updatedAt:-1});
       return user;
     } catch (error: any) {
       console.log(error);
       throw new Error(error);
     }
   };
+
+    async changeStatus(req:Request){
+    return await Users.findByIdAndUpdate(req.body.id,{$set:{status:true}})
+  }
 }

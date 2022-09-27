@@ -1,19 +1,31 @@
 import { Injectable } from '@angular/core';
-import { io } from 'socket.io-client';
+import { Observable } from 'rxjs';
 
-const SOCKET_ENDPOINT = 'http://localhost:3000'
+import { io,Socket } from 'socket.io-client';
+
+const SOCKET_ENDPOINT = 'ws://localhost:5000'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
-  socket:any;
+  private socket:Socket;
 
-  constructor() { }
-  setupSocketConnection() {
-    this.socket = io(SOCKET_ENDPOINT);
-    this.socket.emit('add', 'Hello there from Angular.');
+  constructor() {this.socket = io(SOCKET_ENDPOINT); }
+  setupSocketConnection(id:any) {
+    this.socket.emit('addUser', id);
   }
+  sendRealtimeMessage(data:any){
+    console.log(data)
+    this.socket.emit('sendMessage',data.from,data.to,data.message)
+}
+getMessage(): Observable<any> {
+  return new Observable<{user: string, message: string}>(observer => {
+    this.socket.on('getMessage', (data:any) => {
+      observer.next(data);
+    });
+  });
+}
   disconnect() {
     if (this.socket) {
         this.socket.disconnect();

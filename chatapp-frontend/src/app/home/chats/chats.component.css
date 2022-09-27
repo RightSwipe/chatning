@@ -62,3 +62,7 @@
       display: flex;
       flex-direction: column-reverse;
     }
+    .chat{
+      display: flex;
+      justify-content: space-between;
+    }
