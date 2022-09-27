@@ -1,5 +1,7 @@
+// import { constants } from "buffer";
 import { Request } from "express";
 import { Service } from "typedi";
+import Users from "../../../model/auth.model";
 import Message,{ MessageDocument } from "../../../model/message.model";
 
 @Service()
@@ -42,8 +44,14 @@ addMessageService = async(req:Request)=>{
       sender: from,
       time: Date.now()
     });
+    if(data){
+      await Users.updateMany({_id:{$in:[from,to]}},{$set:{lastmessage:message}})
+
+      
+    }
+    const add = await this.getAllMessageService(req)
     const msg = data? "Message added successfully" : "Failed to add message to the database"
-    return data
+    return {"data":data,"add":add}
 
   } catch (error:any) {
     console.log(error)
