@@ -17,7 +17,7 @@
   .btn{
     text-decoration: none;
   }
-  li:hover{
+  .chatbtn:hover{
     background-color: #f5f6f7;
   }
   button{
@@ -65,4 +65,7 @@
     .chat{
       display: flex;
       justify-content: space-between;
+    }
+    .status{
+      font-size: xx-small;
     }

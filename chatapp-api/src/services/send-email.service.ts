@@ -1,8 +1,7 @@
-import express from "express";
+// import express from "express";
 import nodemailer from "nodemailer";
-import Users from "../model/auth.model";
 
-const app = express();
+// const app = express();
 
 export const sendMail = async (email: String,randomPin:String, subject: String, message: String) => {
   
