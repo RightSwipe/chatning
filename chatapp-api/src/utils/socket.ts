@@ -1,3 +1,5 @@
+import { from } from "rxjs";
+import Users from "../model/auth.model";
 import { getMessages } from "../services/get-message.service";
 
 export const socket =()=>{
@@ -34,7 +36,7 @@ io.on("connection", (socket:any) => {
  //take userId and socketId from user
  socket.on("addUser", (userId: string) => {
    addUser(userId, socket.id);
-   console.log("userID",users)
+   console.log("userID",socket.id)
    io.emit("getUsers", users);
  });
 
@@ -42,10 +44,8 @@ io.on("connection", (socket:any) => {
  socket.on("sendMessage", async( from:any,to:any,text:any ) => {
    const user = await getUser(to);
    console.log(text,user.socketId)
-   await timeout(1000)
+   await timeout(500)
    const message:any =await getMessages(to,from)
-
-   console.log(message)
    io.to(user.socketId).emit("getMessage", {
      "message" : message,
      "data" : from
@@ -53,8 +53,11 @@ io.on("connection", (socket:any) => {
  });
 
  // when disconnect
- socket.on("disconnect", () => {
+ socket.on("disconnect", async() => {
    console.log("a user disconnected!");
+   const ID = await userID(socket.id)
+   const status = await Users.findByIdAndUpdate(ID,{$set:{status:false}})
+   console.log(status)
    removeUser(socket.id);
    io.emit("getUsers", users);
  });
@@ -64,7 +67,15 @@ io.on("connection", (socket:any) => {
 //  console.log('listening on :3000');
 // });
 
-function timeout(ms:number) {
+const timeout = (ms:number)=>{
  return new Promise(resolve => setTimeout(resolve, ms));
 }
+const userID = (socketID:string)=>{
+  for(let i = 0; i<users.length; i++){
+      if(users[i].socketId===socketID){
+          const id = users[i].userId
+          return id
+      }
+  }
+  }
 }

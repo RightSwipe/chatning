@@ -46,6 +46,7 @@ export class AuthService {
       const dbpassword = user?.password!;
       const isPasswordValid = await bcrypt.compare(password, dbpassword);
       if (isPasswordValid) {
+        console.log("valid")
         let payload = { subject: req.body.username + req.body.password };
         let token = jwt.sign(payload, "secretKey");
         return { user: user, token: token };
@@ -59,6 +60,7 @@ export class AuthService {
   newPassword = async (req: Request) => {
     console.log(req.body.username);
     const randomVal = Math.random().toString(36).substring(2, 8);
+    const hashedPassword = await bcrypt.hash(randomVal, 10);
     try {
       console.log("set", `${randomVal}`);
       const user = await Users.findOneAndUpdate(
@@ -67,7 +69,7 @@ export class AuthService {
         },
         {
           $set: {
-            password: randomVal,
+            password: hashedPassword,
           },
         }
       );

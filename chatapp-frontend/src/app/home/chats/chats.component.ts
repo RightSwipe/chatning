@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/shared/services/data.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
 
-const SOCKET_ENDPOINT = "http://localhost:8080"
-
 @Component({
   selector: 'app-chats',
   templateUrl: './chats.component.html',
@@ -16,7 +14,7 @@ export class ChatsComponent implements OnInit {
   chats:any;
   messages:any;
   show = true;
-  status!:string
+  status!:boolean
   msgInfo:any
   send_message!: string;
   reciever_id !: string
@@ -36,6 +34,7 @@ export class ChatsComponent implements OnInit {
   }
 
   async Logout(){
+    this.socketService.disconnect();
     await localStorage.removeItem("token")
     this._router.navigate(['/auth/login'])
   }
@@ -48,11 +47,12 @@ export class ChatsComponent implements OnInit {
     })
 
   }
-  getMessages(reciever_id:string,name:string,image:string){
+  getMessages(reciever_id:string,name:string,image:string,status:boolean){
     this.topName = name
     this.show = false
     this.topImage = image
     this.reciever_id = reciever_id
+    this.status = status
     this.msgInfo = {"from":this.id,"to":reciever_id}
     this._dataService.getMessagae(this.msgInfo).subscribe((res:any)=>{
         this.messages = JSON.parse(JSON.stringify(res.data))

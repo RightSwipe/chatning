@@ -96,8 +96,8 @@
                         </button>
                       </div> -->
                       <div class="container">
-                      <div class="row justify-content-between align-items-center">
-                        <button  class="btn "(click)="getMessages(chat._id,chat.fullname,chat.image)">
+                      <div class="row justify-content-between align-items-center chatbtn">
+                        <button  class="btn "(click)="getMessages(chat._id,chat.fullname,chat.image,chat.status)">
                           <div class="d-flex justify-content-between">
                            <div class="d-flex justify-content-start">
                             <div class="me-3">
@@ -106,12 +106,11 @@
                                 alt="avatar"
                                 height="50" width="50"
                               />
-                              <span class="badge bg-success badge-dot"></span>
                             </div>
                             <div>
-                              <p class="fw-bold mb-1 text-start">{{chat.fullname}}</p>
-                              <p class="small text-muted text-start">
-                                {{chat.lastmessage}}
+                              <p class="fw-bold mb-1 text-start">{{chat.fullname}}<span class="ms-2 status" *ngIf="chat.status===true">🟢</span></p>
+                              <p class="small text-muted text-start last">
+                                {{ ((chat.lastmessage).length > 20) ? ((chat.lastmessage) | slice:0:20) + '...' : chat.lastmessage }}
                               </p>
                             </div>
                            </div>
@@ -142,7 +141,8 @@
                     />
                     <div class="mt-3">
                       <p class="fw-bold mb-0">{{topName}}</p>
-                      <p class="small text-muted">{{status}}</p>
+                      <p class="small text-muted"*ngIf="status===true else Offline">Online</p>
+                      <ng-template #Offline><p class="small text-muted">Offline</p></ng-template>
                     </div>
                   </div>
                   <div class="action mt-3 me-3">
