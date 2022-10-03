@@ -8,6 +8,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { ChatsComponent } from './home/chats/chats.component';
 import { SocketService } from './shared/services/socket.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    FilterPipeModule,
   ],
   providers: [SocketService],
   bootstrap: [AppComponent]

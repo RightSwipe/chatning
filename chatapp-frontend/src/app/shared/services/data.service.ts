@@ -9,8 +9,8 @@ export class DataService {
 
   constructor(private _http:HttpClient) { }
 
-  getUser(id:String){
-    const data = {"id":id}
+  getUser(id:String,switchNum:Number){
+    const data = {"id":id,"switchNum":switchNum}
     return this._http.put<any>("http://localhost:8080/user",data)
   }
   addMessagae(data:object){
