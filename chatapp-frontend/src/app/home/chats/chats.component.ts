@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/shared/services/data.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-chats',
@@ -29,7 +30,8 @@ export class ChatsComponent implements OnInit {
   constructor(
     private _router: Router,
     private _dataService: DataService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private clipboard: Clipboard
   ) {}
 
   ngOnInit(): void {
@@ -141,4 +143,13 @@ export class ChatsComponent implements OnInit {
       });
     }
   }
+  copyHeroName() {
+    this.clipboard.copy('Alphonso');
+  }
+
+
+
+
+
+
 }

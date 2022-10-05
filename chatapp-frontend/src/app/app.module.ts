@@ -9,13 +9,14 @@ import { ChatsComponent } from './home/chats/chats.component';
 import { SocketService } from './shared/services/socket.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import {ClipboardModule} from '@angular/cdk/clipboard'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLayoutComponent,
-    ChatsComponent
+    ChatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +24,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     FormsModule,
     HttpClientModule,
     FilterPipeModule,
+    ClipboardModule
   ],
   providers: [SocketService],
   bootstrap: [AppComponent]
